@@ -12,7 +12,14 @@
 		<tr>
 			<td>text1</td>
 			<td><input type="text" id="text1"/></td>
-			<td><input type="button" value="text1変更" onClick="sendAjaxRequest('text1')"/></td>
+			<td><input type="button" value="text1変更" onClick="asyncChangeValue('text1','hoge')"/></td>
+		</tr>
+		<tr>
+			<td>text2</td>
+			<td><input type="text" id="text2"/></td>
+			<td><input type="button" value="text2disabled" onClick="asyncChangeDisabled('text2',true)"/></td>
+			<td><input type="button" value="text2enabled" onClick="asyncChangeDisabled('text2',false)"/></td>
+			<td><input type="button" value="text2disabled" onClick="asyncChangeDisabled('text2','true')"/></td>
 		</tr>
 	</table>
 </body>
