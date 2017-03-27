@@ -19,7 +19,7 @@ public class NopServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
-			Thread.sleep(5 * 1000);
+			Thread.sleep(1 * 1000);
 		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
