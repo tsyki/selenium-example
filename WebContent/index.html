@@ -12,19 +12,24 @@
 		<tr>
 			<td>text1</td>
 			<td><input type="text" id="text1"/></td>
-			<td><input type="button" id="text1ChangeButton" value="text1変更" onClick="asyncChangeValue('text1','hoge')"/></td>
+			<td><input type="button" id="text1AsyncChangeButton" value="text1変更(async)" onClick="asyncChangeValue('text1','hoge')"/></td>
+			<td><input type="button" id="text1SyncChangeButton" value="text1変更(sync)" onClick="syncChangeValue('text1','hoge')"/></td>
 		</tr>
 		<tr>
 			<td>text2</td>
 			<td><input type="text" id="text2"/></td>
-			<td><input type="button" id="text2DisabledButton" value="text2disabled" onClick="asyncChangeDisabled('text2',true)"/></td>
-			<td><input type="button" id="text2EnabledButton" value="text2enabled" onClick="asyncChangeDisabled('text2',false)"/></td>
+			<td><input type="button" id="text2AsyncDisabledButton" value="text2disabled(async)" onClick="asyncChangeDisabled('text2',true)"/></td>
+			<td><input type="button" id="text2AsyncEnabledButton" value="text2enabled(async)" onClick="asyncChangeDisabled('text2',false)"/></td>
+			<td><input type="button" id="text2SyncDisabledButton" value="text2disabled(sync)" onClick="syncChangeDisabled('text2',true)"/></td>
+			<td><input type="button" id="text2SyncEnabledButton" value="text2enabled(sync)" onClick="syncChangeDisabled('text2',false)"/></td>
 		</tr>
 		<tr>
 			<td>text3</td>
 			<td><input type="text" id="text3"/></td>
-			<td><input type="button" id="text3VisibleButton"value="text3visible" onClick="asyncChangeVisiblity('text3','visible')"/></td>
-			<td><input type="button" id="text3HiddenButton"value="text3hidden" onClick="asyncChangeVisiblity('text3','hidden')"/></td>
+			<td><input type="button" id="text3AsyncVisibleButton" value="text3visible(async)" onClick="asyncChangeVisiblity('text3','visible')"/></td>
+			<td><input type="button" id="text3AsyncHiddenButton" value="text3hidden(async)" onClick="asyncChangeVisiblity('text3','hidden')"/></td>
+			<td><input type="button" id="text3SyncVisibleButton" value="text3visible(sync)" onClick="syncChangeVisiblity('text3','visible')"/></td>
+			<td><input type="button" id="text3SyncHiddenButton" value="text3hidden(sync)" onClick="syncChangeVisiblity('text3','hidden')"/></td>
 		</tr>
 	</table>
 </body>

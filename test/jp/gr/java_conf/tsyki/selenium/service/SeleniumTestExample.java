@@ -24,21 +24,32 @@ public class SeleniumTestExample {
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/selenium_example/");
 
-		WebElement text1Element = driver.findElement(By.id("text1"));
-		text1Element.sendKeys("Cheese!");
-		assertThat(driver.findElement(By.id("text1")).getAttribute("value"), is("Cheese!"));
-		
-		WebElement text1Button = driver.findElement(By.id("text1ChangeButton"));
-		text1Button.click();
-		
-		// ここで明示的な待機を入れないとこける
-		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-		         public Boolean apply(WebDriver d) {
-		        	 return driver.findElement(By.id("text1")).getAttribute("value").equals("hoge");
-		         }
-		     });
-		assertThat(driver.findElement(By.id("text1")).getAttribute("value"), is("hoge"));
-		
+		// Seleniumでの値設定
+		final WebElement text1Element = driver.findElement(By.id("text1"));
+		{
+			text1Element.sendKeys("Cheese!");
+			assertThat(text1Element.getAttribute("value"), is("Cheese!"));
+		}
+		// JSでの同期処理での値変更
+		{
+			WebElement text1SyncButton = driver.findElement(By.id("text1SyncChangeButton"));
+			text1SyncButton.click();
+			assertThat(text1Element.getAttribute("value"), is("hoge"));
+			text1Element.clear();
+		}
+		// 非同期処理での値変更
+		{
+			WebElement text1Button = driver.findElement(By.id("text1AsyncChangeButton"));
+			text1Button.click();
+
+			// ここで明示的な待機を入れないとこける
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver d) {
+					return text1Element.getAttribute("value").equals("hoge");
+				}
+			});
+			assertThat(text1Element.getAttribute("value"), is("hoge"));
+		}
 		driver.quit();
 	}
 }
