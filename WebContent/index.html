@@ -12,14 +12,19 @@
 		<tr>
 			<td>text1</td>
 			<td><input type="text" id="text1"/></td>
-			<td><input type="button" value="text1変更" onClick="asyncChangeValue('text1','hoge')"/></td>
+			<td><input type="button" id="text1ChangeButton" value="text1変更" onClick="asyncChangeValue('text1','hoge')"/></td>
 		</tr>
 		<tr>
 			<td>text2</td>
 			<td><input type="text" id="text2"/></td>
-			<td><input type="button" value="text2disabled" onClick="asyncChangeDisabled('text2',true)"/></td>
-			<td><input type="button" value="text2enabled" onClick="asyncChangeDisabled('text2',false)"/></td>
-			<td><input type="button" value="text2disabled" onClick="asyncChangeDisabled('text2','true')"/></td>
+			<td><input type="button" id="text2DisabledButton" value="text2disabled" onClick="asyncChangeDisabled('text2',true)"/></td>
+			<td><input type="button" id="text2EnabledButton" value="text2enabled" onClick="asyncChangeDisabled('text2',false)"/></td>
+		</tr>
+		<tr>
+			<td>text3</td>
+			<td><input type="text" id="text3"/></td>
+			<td><input type="button" id="text3VisibleButton"value="text3visible" onClick="asyncChangeVisiblity('text3','visible')"/></td>
+			<td><input type="button" id="text3HiddenButton"value="text3hidden" onClick="asyncChangeVisiblity('text3','hidden')"/></td>
 		</tr>
 	</table>
 </body>

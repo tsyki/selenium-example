@@ -8,15 +8,12 @@ function asyncChangeValue(targetId,value){
 
 function asyncChangeDisabled(targetId,value){
 	$.post(url,targetId,function(result){
-		$("#hoge").prop('disabled', value);
+		$("#" + targetId).prop('disabled', value);
 	});
 }
 
-function sendAjaxRequest(target){
-	var url="NopService";
-	$.post(url,target,postCallBack);
-}
-
-function postCallBack(result){
-	$('#text1').val(result);
+function asyncChangeVisiblity(targetId,value){
+	$.post(url,targetId,function(result){
+		$("#" + targetId).css('visibility',value); 
+	});
 }
