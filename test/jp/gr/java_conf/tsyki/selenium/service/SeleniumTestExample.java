@@ -8,8 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
-
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
@@ -23,7 +21,6 @@ import org.openqa.selenium.By;
  */
 public class SeleniumTestExample {
 	@Test
-	@Ignore
 	public void testAsyncChangeValue(){
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://localhost:8080/selenium_example/");
@@ -94,6 +91,50 @@ public class SeleniumTestExample {
 				}
 			});
 			assertThat(text2Element.isEnabled(), is(true));
+		}
+		driver.quit();
+	}
+
+	@Test
+	public void testAsyncVisible(){
+		WebDriver driver = new ChromeDriver();
+		driver.get("http://localhost:8080/selenium_example/");
+
+		// これ入れても効いてない感じがする
+		//driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+
+		final WebElement textElement = driver.findElement(By.id("text3"));
+		// JSでの同期処理での値変更
+		{
+			WebElement syncHiddenButton = driver.findElement(By.id("text3SyncHiddenButton"));
+			syncHiddenButton.click();
+			assertThat(textElement.isDisplayed(), is(false));
+			WebElement syncVisibleButton = driver.findElement(By.id("text3SyncVisibleButton"));
+			syncVisibleButton.click();
+			assertThat(textElement.isDisplayed(), is(true));
+		}
+		// 非同期処理での値変更
+		{
+			WebElement asyncHiddenButton = driver.findElement(By.id("text3AsyncHiddenButton"));
+			asyncHiddenButton.click();
+
+			// ここで明示的な待機を入れないとこける
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver d) {
+					return !textElement.isDisplayed();
+				}
+			});
+			assertThat(textElement.isDisplayed(), is(false));
+
+			WebElement asyncVisibleButton = driver.findElement(By.id("text3AsyncVisibleButton"));
+			asyncVisibleButton.click();
+			// ここで明示的な待機を入れないとこける
+			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+				public Boolean apply(WebDriver d) {
+					return textElement.isDisplayed();
+				}
+			});
+			assertThat(textElement.isDisplayed(), is(true));
 		}
 		driver.quit();
 	}
