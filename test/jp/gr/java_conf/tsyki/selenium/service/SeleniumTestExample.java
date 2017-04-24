@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.*;
@@ -44,11 +45,8 @@ public class SeleniumTestExample {
 			text1Button.click();
 
 			// ここで明示的な待機を入れないとこける
-			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver d) {
-					return text1Element.getAttribute("value").equals("hoge");
-				}
-			});
+			(new WebDriverWait(driver, 5)).until(ExpectedConditions.attributeContains(text1Element, "value", "hoge"));
+			
 			assertThat(text1Element.getAttribute("value"), is("hoge"));
 		}
 		driver.quit();
@@ -75,21 +73,13 @@ public class SeleniumTestExample {
 			text2AsyncDisabledButton.click();
 
 			// ここで明示的な待機を入れないとこける
-			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver d) {
-					return !text2Element.isEnabled();
-				}
-			});
+			(new WebDriverWait(driver, 5)).until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(text2Element)));
 			assertThat(text2Element.isEnabled(), is(false));
 
 			WebElement text2AsyncEnabledButton = driver.findElement(By.id("text2AsyncEnabledButton"));
 			text2AsyncEnabledButton.click();
 			// ここで明示的な待機を入れないとこける
-			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver d) {
-					return text2Element.isEnabled();
-				}
-			});
+			(new WebDriverWait(driver, 5)).until(ExpectedConditions.elementToBeClickable(text2Element));
 			assertThat(text2Element.isEnabled(), is(true));
 		}
 		driver.quit();
@@ -117,23 +107,15 @@ public class SeleniumTestExample {
 		{
 			WebElement asyncHiddenButton = driver.findElement(By.id("text3AsyncHiddenButton"));
 			asyncHiddenButton.click();
-
 			// ここで明示的な待機を入れないとこける
-			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver d) {
-					return !textElement.isDisplayed();
-				}
-			});
+			(new WebDriverWait(driver, 5)).until(ExpectedConditions.invisibilityOf(textElement));
 			assertThat(textElement.isDisplayed(), is(false));
 
 			WebElement asyncVisibleButton = driver.findElement(By.id("text3AsyncVisibleButton"));
 			asyncVisibleButton.click();
 			// ここで明示的な待機を入れないとこける
-			(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
-				public Boolean apply(WebDriver d) {
-					return textElement.isDisplayed();
-				}
-			});
+			(new WebDriverWait(driver, 5)).until(ExpectedConditions.visibilityOf(textElement));
+
 			assertThat(textElement.isDisplayed(), is(true));
 		}
 		driver.quit();
